@@ -6,7 +6,13 @@ interface PropsPage {
 
 async function getData() {
     /* const res = await fetch('https://fakestoreapi.com/products'); */
-    const res = await fetch('http://localhost:3000/api/product')
+    const res = await fetch('http://localhost:3000/api/product', {
+        cache: "force-cache",
+        next: {
+            tags: ['products']
+           /*  revalidate: 30 */
+        }
+    })
     if (!res.ok) {
         throw new Error('Failed To Fetch Data')
     }
@@ -16,7 +22,7 @@ async function getData() {
 export default async function ProductPage ({params} : PropsPage) {
     const {slug} = params
     const products = await getData()
-
+    console.log (products)
     return (
         <div className="grid grid-cols-4 gap-2 mt-5 items-center">
             {/* <h1>{slug ? "Detail Products Page" : "Products Page"}</h1> */}

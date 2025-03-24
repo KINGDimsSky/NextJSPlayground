@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 export default function LoginPage () {
-
   const handleLogin = (e: any) => {
     e.preventDefault();
     fetch('/api/auth/login', {
