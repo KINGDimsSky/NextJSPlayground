@@ -2,7 +2,6 @@
 import { useState } from "react"
 
 export default function AboutLayout ({children} : {children: React.ReactNode}) {
-
     const [state, SetState] = useState(0)
 
     return (

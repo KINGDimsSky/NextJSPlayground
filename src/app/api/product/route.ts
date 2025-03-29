@@ -17,6 +17,5 @@ export async function GET(request: NextRequest) {
         }
       return NextResponse.json({status: 404, message: "Not Found", data: {} })
     }   
-
     return NextResponse.json({status: 200, message: "Success", data: data })
 }
