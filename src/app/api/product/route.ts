@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         if (DetailProduct) {
           return NextResponse.json({status: 200, message: "Success", data: DetailProduct }) 
         }
-      return NextResponse.json({status: 404, message: "Not Found", data: {} })
+      return NextResponse.json({status: 404, message: "Not Found", data: {} }, {status : 400})
     }   
     return NextResponse.json({status: 200, message: "Success", data: data })
 }
