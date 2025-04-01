@@ -24,7 +24,7 @@ async function getData(id ?: string) {
 
 export default async function ProductPage ({params, searchParams} : PropsPage) {
     const {slug} = params
-    const id = searchParams.id
+    const {id} = searchParams
     const products = await getData(id) //tambah parameter cak lek testing single product
     console.log (products)
     console.log (id)
