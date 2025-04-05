@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Navbar";
 import { usePathname } from "next/navigation";
+import { SessionProvider } from "next-auth/react";
 
 
 const geistSans = Geist({
@@ -28,8 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {!disableNav.includes(pathname) && <Navbar/>}
-        {children}
+        <SessionProvider>
+          {!disableNav.includes(pathname) && <Navbar/>}
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );
