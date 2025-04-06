@@ -1,10 +1,11 @@
-import NextAuth, { User, Session, NextAuthOptions } from "next-auth";
+import NextAuth, { User, Session, NextAuthOptions, Account } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 
 export const authOptions : NextAuthOptions = {
     providers : [
         CredentialsProvider({
+            type: "credentials",
             name: "Credentials",
             credentials: {
                 email : {label : "Email", type : "text"},
@@ -30,7 +31,8 @@ export const authOptions : NextAuthOptions = {
                         id : "2",
                         name : "user",
                         email: email,
-                        password : password
+                        password : password,
+                        role : "user"
                     }
                 }
                 return null;
@@ -45,13 +47,22 @@ export const authOptions : NextAuthOptions = {
         async jwt({token, user} : {token : JWT, user ?: User}){
             if (user) {
                 token.role = user.role;
+                token.email = user.email;
                 token.id = user.id;
+                token.name = user.name
             }
             return token
         },
         async session ({session, token} : {session: Session, token: JWT}){
-                session.user.id = token.id;
-                session.user.role = token.role;
+                if ("email" in token) {
+                    session.user.email = token.email
+                }
+                if ("role" in token) {
+                    session.user.role = token.role;
+                }
+                if ("name" in token) {
+                    session.user.name = token.name
+                }                
                 return session;
         }
     },

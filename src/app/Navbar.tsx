@@ -1,6 +1,6 @@
 'use client'
 
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -18,11 +18,14 @@ export default function Navbar() {
                 <Link href="/about/profile"><p className={`${pathname === '/about/profile' ? 'text-blue-300' : 'text-white'}`}>Profile</p></Link>
             </div>
             {status === 'loading' ? (
-                <p>Loading ...</p>
+                <p className="text-white">Loading ...</p>
             ): (session?.user ? (
-                <button onClick={() => router.push('/login')} className="bg-white text-sm rounded-md px-3 cursor-pointer">LogOut</button>
+                <div className="flex gap-3">
+                    <p className="text-xl text-white">Hello {session?.user.name}</p>
+                    <button onClick={() => signOut()} className="bg-white text-sm rounded-md px-3 cursor-pointer">LogOut</button>
+                </div>
             ): (
-                <button onClick={() => router.push('/login')} className="bg-white text-sm rounded-md px-3 cursor-pointer">Login</button>
+                <button onClick={() => signIn()} className="bg-white text-sm rounded-md px-3 cursor-pointer">Login</button>
             ))}
            
         </div>

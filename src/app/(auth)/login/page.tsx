@@ -15,7 +15,6 @@ export default function LoginPage () {
       password : e.currentTarget.password.value,
       redirect : false
     })
-
     console.log (res)
 
     if (res ?.ok){
@@ -23,7 +22,6 @@ export default function LoginPage () {
     }else {
       alert("email error")
     }
-
   }
 
   return (
